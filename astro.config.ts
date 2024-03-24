@@ -53,6 +53,7 @@ export default defineConfig({
 	},
 });
 
+  
 function rawFonts(ext: Array<string>) {
 	return {
 		name: "vite-plugin-raw-fonts",
