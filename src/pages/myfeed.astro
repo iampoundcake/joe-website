@@ -5,7 +5,41 @@ import PageLayout from "@/layouts/Base.astro";
 <PageLayout meta={{ title: "Home" }}>
 
     <section>
-
+        <style>
+            .toot {
+                background-color: white;
+                color: #333;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+    
+            .toot a {
+                color: #d26f3d;
+                text-decoration: none;
+            }
+    
+            .toot a:hover {
+                text-decoration: underline;
+            }
+    
+            .avatar {
+                width: 46px;
+                height: 46px;
+                border-radius: 50%;
+                overflow: hidden;
+                margin-right: 0.5rem;
+            }
+    
+            .display-name {
+                font-weight: bold;
+            }
+    
+            .username {
+                color: #666;
+            }
+        </style>
       <h1 class="title mb-6">live feed 📃</h1>
       <p class="mb-4">
         this is just a reference for me to look at when i am further building out this site, or things to consider for my projects. i would not recommend following.
