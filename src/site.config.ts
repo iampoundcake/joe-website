@@ -44,6 +44,10 @@ export const menuLinks: Array<{ title: string; path: string }> = [
 		title: "media library",
 		path: "",
 	},
+	{
+		title: "log",
+		path: "/myfeed/",
+	},
 ];
 
 // https://expressive-code.com/reference/configuration/
