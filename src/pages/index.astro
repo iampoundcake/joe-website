@@ -56,13 +56,14 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 	<section>
 		<h1 class="title mb-6">welcome 👋</h1>
 		<p class="mb-4">
-			you've stumbled upon my (joe's) online commonplace. this is an area where i log, park, and expand upon ideas and thoughts that linger. thanks for stopping by.
+			you've stumbled upon my (joe's) online commonplace. this is an area where i log, park, and
+			expand upon ideas and thoughts that linger. thanks for stopping by.
 		</p>
 		<SocialList />
 	</section>
 	<section aria-label="Blog post list" class="mt-16">
 		<h2 class="title mb-4 text-xl">posts 📓</h2>
-		
+
 		<ul class="space-y-4">
 			{
 				allPostsByDate.map((p) => (
@@ -74,23 +75,42 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		</ul>
 	</section>
 	<section class="mt-16">
-		<h2 class="title mb-4 text-xl">Technologies</h2>
-		<dl class="space-y-4">
-			{
-				cactusTech.map(({ desc, href, title }) => (
-					<div class="flex flex-col gap-2 md:flex-row">
-						<dt>
-							<span class="flex">
-								<a class="cactus-link" href={href} rel="noopener noreferrer" target="_blank">
-									{title}
-								</a>
-								:
-							</span>
-						</dt>
-						<dd>{desc}</dd>
-					</div>
-				))
-			}
-		</dl>
+		<h2 class="title mb-4 text-xl">current 📌</h2>
+		<table>
+			<tr>
+				<td class="column1">version</td>
+				<td class="column2">1.0.0 alpha</td>
+			</tr>
+			<tr>
+				<td class="column1">alias</td>
+				<td class="column2">poundcake</td>
+			</tr>
+			<tr>
+				<td class="column1">location</td>
+				<td class="column2">new jersey</td>
+			</tr>
+			<tr>
+				<td class="column1">work</td>
+				<td class="column2">marketing manager @ investment advisory/management firm</td>
+			</tr>
+			<tr>
+				<td class="column1">writing stack</td>
+				<td class="column2"
+					>lamy safari fountain pen / sailor #16 night dream / lechtturm 1917</td
+				>
+			</tr>
+			<tr>
+				<td class="column1">planner</td>
+				<td class="column2">hobonichi techo cousin (a5)</td>
+				<tr>
+					<td class="column1">reading</td>
+					<td class="column2">alone with you in the ether, olivie blake</td>
+				</tr>
+				<tr>
+					<td class="column1">obsession</td>
+					<td class="column2">this website</td>
+				</tr>
+			</tr>
+		</table>
 	</section>
 </PageLayout>

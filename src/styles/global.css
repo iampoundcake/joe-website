@@ -32,4 +32,21 @@
 	body {
 		@apply mx-auto flex min-h-screen max-w-3xl flex-col bg-bgColor px-8 pt-16 font-mono text-sm font-normal text-textColor antialiased;
 	}
+	.column1 {
+		background-color: transparent;
+		color: #D9D9D9;
+	  }
+	  
+	  .column2 {
+		background-color: transparent; /* This line is optional as it's the default value */
+		padding-left: 35px; /* Adjust to match the width of your first column */
+ /* Negative value of the padding to pull text back to the edge */
+		color: #D9D9D9;
+	  }
+	tr {
+	border-bottom: 1px dotted #5A6900; /* Adjust the color as needed */
+  	}
+	tr:not(:last-child) {
+	border-bottom: 1px dotted #5A6900;
+	}
 }
