@@ -36,24 +36,39 @@
 	body {
 		@apply mx-auto flex min-h-screen max-w-3xl flex-col bg-bgColor px-8 pt-16 font-mono text-sm font-normal text-textColor antialiased;
 	}
-	.column1, .column2 {
-		color: hsl(var(--theme-text) / alpha-value);
-	  }
-	  .column2 {
-		background-color: transparent;
-		color: var(--theme-text);
-		padding: 5px 10px 5px 35px; /* top, right, bottom, left */
-	  }  
-	tr {
-		border-bottom: 1px dotted hsl(var(--theme-accent) / alpha-value);
-	  }
-	  
-	  /* Ensuring the table adapts to theme changes */
-	  .column1, .column2 {
-		@apply text-textColor; /* Tailwind utility class for text color based on theme */
-	  }
-	  
-	tr:not(:last-child) {
-		border-bottom: 1px dotted var(--table-border, #5A6900); /* Default to light theme color */
-	  }
-	}
+/* Feed Styles */
+.toot {
+    @apply bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4;
+  }
+
+  .toot a, .toot time, .toot .username, .toot .display-name, .toot .body {
+    @apply text-gray-900 dark:text-white;
+  }
+
+  .toot a:hover {
+    @apply text-blue-500 hover:text-blue-600;
+  }
+
+  .avatar {
+    @apply rounded-full;
+  }
+
+  /* Adjusted column and table styles */
+  .column1, .column2 {
+    @apply text-textColor;
+    color: hsl(var(--theme-text));
+  }
+  
+  .column2 {
+    background-color: transparent;
+    padding: 5px 10px 5px 35px; /* Adjusted padding for consistency */
+  }  
+
+  tr {
+    border-bottom: 1px dotted hsl(var(--theme-accent) / alpha-value);
+  }
+  
+  tr:not(:last-child) {
+    border-bottom: 1px dotted var(--table-border, #5A6900); /* Default to light theme color */
+  }
+}
