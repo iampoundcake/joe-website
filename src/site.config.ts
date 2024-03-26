@@ -45,7 +45,7 @@ export const menuLinks: Array<{ title: string; path: string }> = [
 		path: "",
 	},
 	{
-		title: "log",
+		title: "feed",
 		path: "/myfeed/",
 	},
 ];

@@ -54,14 +54,23 @@
   }
 
   /* Adjusted column and table styles */
-  .column1, .column2 {
+  .column1, .column2, .column3 {
     @apply text-textColor;
+	padding: 5px 0px 0px 0px;
     color: hsl(var(--theme-text));
   }
   
   .column2 {
     background-color: transparent;
     padding: 5px 10px 5px 35px; /* Adjusted padding for consistency */
+  }  
+  .column4 {
+    background-color: transparent;
+    padding: 5px 25px 5px 17px; /* Adjusted padding for consistency */
+  }  
+  .column3 {
+    background-color: transparent;
+    padding: 5px 0px 5px 0px; /* Adjusted padding for consistency */
   }  
 
   tr {
