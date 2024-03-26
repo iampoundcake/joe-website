@@ -40,7 +40,7 @@
 .toot {
   @apply bg-white dark:bg-leaf-green p-4 rounded-lg shadow-md mb-4;
   height: auto;
-  width: 400px;
+  width: auto;
   overflow: hidden; /* Ensures content that exceeds the height is hidden */
   display: flex;
   flex-direction: column;
