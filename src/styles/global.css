@@ -75,7 +75,7 @@
 
 
   /* Adjusted column and table styles */
-  .column1, .column2, .column3 {
+  .column1, .column2, .column3, .column4 {
     @apply text-textColor;
 	padding: 5px 0px 0px 0px;
     color: hsl(var(--theme-text));
@@ -90,11 +90,11 @@
   }  
   .column4 {
     background-color: transparent;
-    padding: 5px 25px 5px 17px; /* Adjusted padding for consistency */
+    padding: 5px 30px 5px 17px; /* Adjusted padding for consistency */
   }  
   .column3 {
     background-color: transparent;
-    padding: 5px 0px 5px 0px; /* Adjusted padding for consistency */
+    padding: 5px 0px 0px 0px; /* Adjusted padding for consistency */
   }  
 
   tr {
