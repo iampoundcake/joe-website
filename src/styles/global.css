@@ -38,26 +38,50 @@
 	}
 /* Feed Styles */
 .toot {
-    @apply bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-4;
-  }
+  @apply bg-white dark:bg-leaf-green p-4 rounded-lg shadow-md mb-4;
+  height: auto;
+  width: 400px;
+  overflow: hidden; /* Ensures content that exceeds the height is hidden */
+  display: flex;
+  flex-direction: column;
+}
 
-  .toot a, .toot time, .toot .username, .toot .display-name, .toot .body {
-    @apply text-gray-900 dark:text-white;
-  }
+/* Specific styles for content images, excluding avatars */
+.toot img:not(.avatar) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Creates a responsive grid with each column at least 120px wide */
+  gap: 8px; /* Adjusts space between images */
+  width: 100%; /* Makes images fill their cell */
+  height: auto; /* Maintains aspect ratio */
+  object-fit: cover; /* Adjusts the images to cover the area without stretching */
+}
 
-  .toot a:hover {
-    @apply text-blue-500 hover:text-blue-600;
-  }
+/* Profile image styles */
+.avatar {
+  @apply rounded-full;
+  width: 46px; /* Fixed avatar size */
+  height: 46px;
+  margin-right: 8px; /* Adjust as necessary */
+}
 
-  .avatar {
-    @apply rounded-full;
-  }
+.toot a, .toot time, .toot .username, .toot .display-name, .toot .body {
+  @apply text-gray-900 dark:text-white;
+}
+
+.toot a, .toot time, .toot .username, .toot .display-name, .toot .body {
+  @apply text-gray-900 dark:text-white;
+}
+
+
 
   /* Adjusted column and table styles */
   .column1, .column2, .column3 {
     @apply text-textColor;
 	padding: 5px 0px 0px 0px;
     color: hsl(var(--theme-text));
+  }
+  .column1, .column2, .column3, .column4, a {
+    @apply text-inherit; /* This makes the link inherit the text color from its parent */
   }
   
   .column2 {

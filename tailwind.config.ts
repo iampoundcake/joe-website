@@ -29,6 +29,7 @@ export default {
 				accent: "hsl(var(--theme-accent) / <alpha-value>)",
 				"accent-2": "hsl(var(--theme-accent-2) / <alpha-value>)",
 				quote: "hsl(var(--theme-quote) / <alpha-value>)",
+				'leaf-green':"#5d6b00", 
 			},
 			fontFamily: {
 				// Add any custom fonts here
