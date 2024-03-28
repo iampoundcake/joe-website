@@ -1,1 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 500 500"><path fill="#B04304" d="M295.334 103.333v-40L340.667 90v40l-45.333-26.667ZM250.001 63.333l-45.334-26.666v426.666L250.001 490V63.333Z"/><path fill="#FF5D01" d="m250.001 129.944 45.333-26.667 45.333 26.667-45.333 26.667-45.333-26.667ZM204.667 36.667 250.001 10l45.333 26.667-45.333 26.666-45.334-26.666ZM295.334 63.277l45.333-26.666L386 63.277l-45.333 26.667-45.333-26.667ZM114 223.277l45.333-26.667 45.334 26.667-45.334 26.667L114 223.277ZM250 249.944l-45.333-26.667v53.333L250 249.944Z"/><path fill="#53C68C" d="m250 63.333 45.333-26.666v120L340.667 130V90L386 63.333V170l-90.667 53.333v240L250 490V316.667L159.333 370V250l45.334-26.667v53.334L250 250V63.333Z"/><path fill="#B04304" d="M159.333 250 114 223.334v120L159.333 370V250Z"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 28.3.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" viewBox="0 0 904.2 904.2" style="enable-background:new 0 0 904.2 904.2;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#5D6B00;stroke-width:55;stroke-miterlimit:10;}
+</style>
+<g>
+	<circle class="st0" cx="452.1" cy="452.1" r="424.6"/>
+	<line class="st0" x1="83.1" y1="241.8" x2="813.1" y2="241.8"/>
+	<line class="st0" x1="826" y1="250.7" x2="58.9" y2="612.8"/>
+	<line class="st0" x1="452.1" y1="427.2" x2="843.9" y2="612.8"/>
+	<line class="st0" x1="452.1" y1="431.7" x2="452.1" y2="858.1"/>
+</g>
+</svg>
