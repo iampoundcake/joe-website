@@ -82,3 +82,32 @@ export type Summary = {
 	"content-type": string;
 	value: string;
 };
+
+export type BookFrontmatter = {
+	title: string;
+	author: string;
+	publishDate: string;
+	coverImage?: {
+	  src: string;
+	  alt: string;
+	};
+	summary: string;
+	// ... any other fields your book entries might have
+  };
+
+  declare module 'astro:content' {
+	interface ContentEntryMap {
+	  book: {
+		// Define the structure of your 'book' collection here
+		title: string;
+		author: string;
+		publishDate: Date;
+		coverImage?: {
+		  src: string;
+		  alt?: string;
+		};
+		summary: string;
+		// ... any other fields your book entries might have
+	  };
+	}
+  }

@@ -42,7 +42,7 @@ export const menuLinks: Array<{ title: string; path: string }> = [
 	},
 	{
 		title: "media library",
-		path: "",
+		path: "/tags/media/",
 	},
 	{
 		title: "feed",
