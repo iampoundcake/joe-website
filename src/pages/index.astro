@@ -3,7 +3,6 @@ import SocialList from "@/components/SocialList.astro";
 import PostPreview from "@/components/blog/PostPreview.astro";
 import PageLayout from "@/layouts/Base.astro";
 import { getAllPosts, sortMDByDate } from "@/data/post"
-import { getAllBooks, sortBooksByDate } from "@/data/book";
 
 const MAX_POSTS = 10;
 const allPosts = await getAllPosts();
@@ -32,6 +31,28 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
 			}
 		</ul>
 	</section>
+	
+	<section class="mt-16">
+		<h1 class="title mb-6">book challenge 📖</h1>
+		
+			<p>2024 list <a href="/post/book-challenge">here.</a></p><br>
+		
+		<table>
+			<tr>
+				<td class="column1">books read</td>
+				<td class="column2">09</td>
+			</tr>
+			<tr>
+				<td class="column1">current</td>
+				<td class="column2">Beloved, Toni Morrison</td>
+			</tr>
+			<tr>
+				<td class="column1">up next</td>
+				<td class="column2">The Atlas Six, Olivie Blake (i think...)</td>
+			</tr>
+			</table>
+	</section>
+
 	<section class="mt-16">
 		<h2 class="title mb-4 text-xl">current 📌</h2>
 		<table>
@@ -61,12 +82,8 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
 				<td class="column1">planner</td>
 				<td class="column2">hobonichi techo cousin (a5)</td>
 				<tr>
-					<td class="column1">reading</td>
-					<td class="column2">alone with you in the ether, olivie blake</td>
-				</tr>
-				<tr>
 					<td class="column1">obsession</td>
-					<td class="column2">this website</td>
+					<td class="column2"><a href="https://www.youtube.com/watch?v=N9bKBAA22Go&pp=ygUJbGlrZSB0aGF0">metro ft. kendrick lamar - like that</a></td>
 				</tr>
 			</tr>
 		</table>
