@@ -1,9 +1,10 @@
 ---
 title: "alone with you in the ether"
 publishDate: "25 Mar 2024"
-tags: ["book", "bookstocryto", "media"]
+tags: ["book", "romance", "media"]
 description: "a heartfelt romance about a boy and a girl, and it gets messy..."
 ---
+![alone with you in the ether cover](./cover.jpg)
 
 ## author
 Olivie Blake
