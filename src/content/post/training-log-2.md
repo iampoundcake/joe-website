@@ -2,7 +2,7 @@
 title: "sunday scaries (1)"
 publishDate: "31 Mar 2024"
 tags: ["training", "hybrid", "cardio"]
-description: "created a circuit that ruined me."
+description: "30 min until you forget work is tomorrow."
 ---
 ## log
 
