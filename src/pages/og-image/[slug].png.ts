@@ -5,6 +5,9 @@ import { Resvg } from "@resvg/resvg-js";
 import { siteConfig } from "@/site-config";
 import { getFormattedDate } from "@/utils";
 import { getAllPosts } from "@/data/post";
+import { getAllGarden } from "@/data/garden";
+import { getAllTraining } from "@/data/training";
+import { getAllMediaLibrary } from "@/data/media-library";
 
 import RobotoMono from "@/assets/roboto-mono-regular.ttf";
 import RobotoMonoBold from "@/assets/roboto-mono-700.ttf";
@@ -63,11 +66,11 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 export async function GET(context: APIContext) {
 	const { title, pubDate } = context.props as Props;
 
-	const postDate = getFormattedDate(pubDate, {
+	const articleDate = getFormattedDate(pubDate, {
 		weekday: "long",
 		month: "long",
 	});
-	const svg = await satori(markup(title, postDate), ogOptions);
+	const svg = await satori(markup(title, articleDate), ogOptions);
 	const png = new Resvg(svg).render().asPng();
 	return new Response(png, {
 		headers: {
@@ -79,13 +82,19 @@ export async function GET(context: APIContext) {
 
 export async function getStaticPaths() {
 	const posts = await getAllPosts();
-	return posts
+	const dailies = await getAllGarden();
+	const training = await getAllTraining();
+	const mediaLibrary = await getAllMediaLibrary();
+
+	const articles = [...posts, ...dailies, ...training, ...mediaLibrary]
+
+	return articles
 		.filter(({ data }) => !data.ogImage)
-		.map((post) => ({
-			params: { slug: post.slug },
+		.map((article) => ({
+			params: { slug: article.slug },
 			props: {
-				title: post.data.title,
-				pubDate: post.data.updatedDate ?? post.data.publishDate,
+				title: article.data.title,
+				pubDate: article.data.updatedDate ?? article.data.publishDate,
 			},
 		}));
 }

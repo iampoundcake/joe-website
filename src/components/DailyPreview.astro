@@ -1,0 +1,43 @@
+---
+import { CollectionEntry } from "astro:content";
+import FormattedDate from "./FormattedDate.astro";
+
+interface Props {
+	daily: CollectionEntry<"dailies">;
+}
+
+const { daily } = Astro.props;
+---
+
+<li>
+	<a
+		class="flex flex-col gap-8 rounded sm:flex-row sm:items-center"
+		href={`/dailies/${daily.slug}`}
+	>
+		<div class="sm:w-1/2">
+			<img
+				class="rounded"
+				src={daily.data.coverImage.src.src}
+				alt={daily.data.coverImage.alt}
+				width={daily.data.coverImage.src.width}
+				height={daily.data.coverImage.src.height}
+			/>
+		</div>
+		<div class="sm:w-1/2">
+			<div class="space-y-2">
+				<h2 class="text-lg lg:text-xl">{daily.data.title}</h2>
+				<p class="line-clamp-3">{daily.data.description}</p>
+				<ul class="flex items-center gap-x-2">
+					{
+						daily.data.tags.map((tag) => {
+							return <li class="rounded-lg bg-accent p-1 text-xs text-bgColor">{tag}</li>;
+						})
+					}
+				</ul>
+				<p class="text-gray-600 dark:text-gray-400">
+					<FormattedDate date={daily.data.publishDate} />
+				</p>
+			</div>
+		</div>
+	</a>
+</li>

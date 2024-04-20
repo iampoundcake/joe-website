@@ -1,31 +1,31 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
-import BlogHero from "@/components/blog/Hero.astro";
-import TOC from "@/components/blog/TOC.astro";
-import WebMentions from "@/components/blog/webmentions/index.astro";
+import Hero from "@/components/Hero.astro";
+import TOC from "@/components/TOC.astro";
+import WebMentions from "@/components/webmentions/index.astro";
 
 import BaseLayout from "./Base.astro";
 
 interface Props {
-	post: CollectionEntry<"post">;
+	entry: CollectionEntry<"post, dalies, garden, training, media-library">;
 }
 
-const { post } = Astro.props;
+const { entry } = Astro.props;
 const {
 	data: { description, ogImage, publishDate, title, updatedDate },
 	slug,
-} = post;
+} = entry;
 const socialImage = ogImage ?? `/og-image/${slug}.png`;
 const articleDate = updatedDate?.toISOString();
-const { headings } = await post.render();
+const { headings } = await entry.render();
 ---
 
 <BaseLayout meta={{ articleDate, description, ogImage: socialImage, title }}>
 	<div class="gap-x-10 lg:flex lg:items-start">
 		{!!headings.length && <TOC headings={headings} />}
 		<article class="flex-grow break-words" data-pagefind-body>
-			<div id="blog-hero"><BlogHero content={post} /></div>
+			<div id="blog-hero"><Hero content={entry} /></div>
 			<div
 				class="prose prose-sm prose-cactus mt-12 prose-headings:font-semibold prose-headings:text-accent-2 prose-headings:before:absolute prose-headings:before:-ms-4 prose-headings:before:text-accent prose-headings:before:content-['#'] prose-th:before:content-none"
 			>
