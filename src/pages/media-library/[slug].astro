@@ -2,11 +2,11 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
 import CollectionLayout from "@/layouts/CollectionLayout.astro";
-import { getAllPosts } from "@/data/post";
+import { getAllMediaLibrary } from "@/data/media-library";
 
 export const getStaticPaths = (async () => {
-	const blogEntries = await getAllPosts();
-	return blogEntries.map((entry) => ({
+	const mediaLibraryEntries = await getAllMediaLibrary();
+	return mediaLibraryEntries.map((entry) => ({
 		params: { slug: entry.slug },
 		props: { entry },
 	}));

@@ -1,0 +1,43 @@
+---
+import { CollectionEntry } from "astro:content";
+import FormattedDate from "./FormattedDate.astro";
+
+interface Props {
+	media: CollectionEntry<"media-library">;
+}
+
+const { media } = Astro.props;
+---
+
+<li>
+	<a
+		class="block rounded-3xl bg-accent px-8 py-3 text-center text-bgColor"
+		href={`/media-library/${media.slug}`}
+	>
+		<img
+			class="rounded-3xl"
+			src={media.data.coverImage.src.src}
+			alt={media.data.coverImage.alt}
+			width={media.data.coverImage.src.width}
+			height={media.data.coverImage.src.height}
+		/>
+		<div class="mt-4">
+			<h2>{media.data.title}</h2>
+			<p class="mt-0.5 text-xs italic">
+				<FormattedDate date={media.data.publishDate} />
+			</p>
+			<ul class="mt-2 flex items-center justify-center gap-x-2 text-xs">
+				{
+					media.data.tags.map((tag) => {
+						return (
+							<li class="rounded bg-white px-3 py-1 text-xs text-accent dark:bg-leaf-green dark:text-white">
+								{tag}
+							</li>
+						);
+					})
+				}
+			</ul>
+			<p class="mt-1 line-clamp-3">{media.data.description}</p>
+		</div>
+	</a>
+</li>
