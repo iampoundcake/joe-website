@@ -6,7 +6,7 @@ coverImage:
   src: "./cover.jpg"
   alt: "book cover"
 tags: ["book", "romance"]
-draft: true
+draft: false
 ---
 
 ## author
