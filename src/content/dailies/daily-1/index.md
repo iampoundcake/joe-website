@@ -6,7 +6,7 @@ coverImage:
   src: "./cover.jpg"
   alt: "Daily 1"
 tags: ["Tag 1", "Tag 2"]
-draft: false
+draft: true
 ---
 
 ## Et auras fata amplectitur Euhan pericula est

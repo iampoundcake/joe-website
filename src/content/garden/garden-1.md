@@ -3,7 +3,7 @@ title: "Garden 1"
 description: "Lorem ipsum"
 publishDate: "01 Apr 2024"
 tags: ["Tag 1", "Tag 2"]
-draft: false
+draft: true
 ---
 
 ## Sed que virides tegebat prius
