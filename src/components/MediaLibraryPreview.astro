@@ -11,16 +11,18 @@ const { media } = Astro.props;
 
 <li>
 	<a
-		class="block rounded-3xl bg-accent px-8 py-3 text-center text-bgColor"
+		class="block h-full rounded-3xl bg-accent px-8 py-3 text-center text-bgColor"
 		href={`/media-library/${media.slug}`}
 	>
-		<img
-			class="rounded-3xl"
-			src={media.data.coverImage.src.src}
-			alt={media.data.coverImage.alt}
-			width={media.data.coverImage.src.width}
-			height={media.data.coverImage.src.height}
-		/>
+		<div class="aspect-h-1 aspect-w-1">
+			<img
+				class="h-full w-full rounded-3xl object-cover object-center"
+				src={media.data.coverImage.src.src}
+				alt={media.data.coverImage.alt}
+				width={media.data.coverImage.src.width}
+				height={media.data.coverImage.src.height}
+			/>ƒ
+		</div>
 		<div class="mt-4">
 			<h2>{media.data.title}</h2>
 			<p class="mt-0.5 text-xs italic">
