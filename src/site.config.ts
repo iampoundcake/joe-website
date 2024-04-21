@@ -49,8 +49,8 @@ export const menuLinks: Array<{ title: string; path: string }> = [
 		path: "/training/",
 	},
 	{
-		title: "feed",
-		path: "/myfeed/",
+		title: "garden",
+		path: "/garden/",
 	},
 ];
 
