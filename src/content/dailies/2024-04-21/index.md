@@ -6,7 +6,7 @@ coverImage:
   src: "./rigatonez.jpg"
   alt: "the all-day sunday sauce with rigatoni"
 tags: ["good", "anticipatory"]
-draft: true
+draft: false
 ---
 
 ## poi (points of interest)
