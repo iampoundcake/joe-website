@@ -49,7 +49,11 @@ export const menuLinks: Array<{ title: string; path: string }> = [
 		path: "/training/",
 	},
 	{
-		title: "garden",
+		title: "log",
+		path: "/dailies/",
+	},
+	{
+		title: "🪴",
 		path: "/garden/",
 	},
 ];
