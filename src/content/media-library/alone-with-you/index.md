@@ -5,7 +5,7 @@ publishDate: "25 Mar 2024"
 coverImage:
   src: "./cover.jpg"
   alt: "book cover"
-tags: ["book", "romance"]
+tags: ["📖", "romance", "★★★★"]
 draft: false
 ---
 

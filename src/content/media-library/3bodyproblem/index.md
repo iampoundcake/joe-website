@@ -5,7 +5,7 @@ publishDate: "30 Mar 2024"
 coverImage:
   src: "./cover.png"
   alt: "eiza gonzalez as auggie salazar in 3 body problem the tc series"
-tags: ["tv series", "scifi"]
+tags: ["📺", "scifi", "★★★"]
 draft: false
 ---
 

@@ -5,7 +5,7 @@ publishDate: "22 Apr 2024"
 coverImage:
   src: "./cover.webp"
   alt: "album cover"
-tags: ["music", "pop country", "★★"]
+tags: ["💿", "country", "★★"]
 draft: false
 ---
 
