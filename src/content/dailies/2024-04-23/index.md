@@ -19,7 +19,9 @@ draft: false
 - my first presentation in front of the entire company. (it went well!)
 - finally building out my own wiki and it's fun. it's like brain dumping and defragging the mind.
 - talked with jill for while today.
-- starting to feel a rhythm at work
+- starting to feel a rhythm at work.
+- foster by claire keegan is going to be good.
+- a little rage against the machine at the end of the day.
 
 ## song stuck in my head
 
@@ -38,6 +40,7 @@ draft: false
 - spotlight doc
 - decide on a set time to log
 - train tomorrow
+- put laundry away
 
 ## food log
 
