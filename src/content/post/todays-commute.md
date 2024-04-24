@@ -5,6 +5,7 @@ publishDate: "02 Apr 2024"
 tags: ["blog"]
 draft: false
 ---
+
 Sitting on the bus, on my way into Manhattan, the song [_Sun Models_ by Odesza](https://youtu.be/cwLRN5sdfnA?si=4Q1hKI_DIPbPG8uw) came on. This got me feeling nostalgic. The corners of my lips couldn’t help but curl. Odesza always has this euphoric quality, but that wasn’t why I was grinning like an idiot on a stormy, gray day on a bus filled with people who’d rather be elsewhere [(anywhere with sun at this point, I assume)](https://gothamist.com/news/nyc-finally-broke-its-11-day-cloudy-streak-on-saturday).
 
 I was smiling like an idiot because just 10 years ago, I was listening to the same wonderful song while walking to the 125th street 1 train stop a block away from my room. It was a room the equivalent of Harry Potter’s room at the Dursley’s. Except my closet had a closet. Even then, I was on my way to midtown, in [chinos and a button up](https://www.instagram.com/midtownuniform/), something I had sworn oto change after leaving that job just a year and a half later. I got my wish being hired at an agency. Although, I still somehow pushed the boundaries there. But that's Stamford for you.
