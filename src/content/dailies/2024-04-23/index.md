@@ -39,6 +39,7 @@ draft: false
 - tokyo deck
 - spotlight doc
 - decide on a set time to log
+- build list of cars
 - train tomorrow
 - put laundry away
 
