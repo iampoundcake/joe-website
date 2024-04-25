@@ -23,4 +23,4 @@ a shy young girl is sent off with foster parents while her mother gives birth wh
 
 ## slap rating
 
-this slaaaaaaps. keegan has a special way with words. her ability to tell so much in such a small book. sentences are packed with so much emotion and depth. i enjoyd this story a ton.
+this slaaaaaaps. keegan has a special way with words. her ability to tell so much in such a small book. sentences are packed with so much emotion and depth. i enjoyed this story a ton.
