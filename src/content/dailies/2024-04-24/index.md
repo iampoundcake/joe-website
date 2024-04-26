@@ -1,11 +1,11 @@
 ---
 title: "No. 4"
-description: "lorem"
+description: "an avalanche of logistics incoming"
 publishDate: "24 Apr 2024"
 coverImage:
   src: "./omfbb-mqcxl.webp"
   alt: ""
-tags: ["rested", "2"]
+tags: ["rested", "content"]
 draft: false
 ---
 
@@ -16,7 +16,7 @@ draft: false
 ## poi (points of interest)
 
 - mom showed me all the cute clothes she's bought. and the baby carrier (podaegi) and i got to see my aunt.
--
+
 
 ## song stuck in my head
 
