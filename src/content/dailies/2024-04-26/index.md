@@ -1,15 +1,15 @@
 ---
 title: "No. 6"
 description: "going dark mode"
-publishDate: “30 Apr 2024"
+publishDate: "26 Apr 2024"
 coverImage:
-  src: "./IMG.webp"
-  alt: ""
-tags: ["excited", “unmotivated"]
+  src: "./IMG_5022.jpg"
+  alt: "a gentlecat."
+tags: ["excited", "unmotivated"]
 draft: false
 ---
 
-_This post is a retrospective._
+_This post is a retrospective on 4/30._
 
 ## hours of sleep
 
