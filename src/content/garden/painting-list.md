@@ -12,7 +12,7 @@ NOTA: DEBE ESTAR TERMINADO PARA EL VIERNES. EL SUELO ESTARÁ EN LA CASA EL VIERN
 
 - Quitar las placas eléctricas para pintar y reinstalar al terminar
 - Pintar el interior de los armarios y ambos lados de todas las puertas
-    -Quitar todos los clavos y tornillos, tapar los agujeros
+    - Quitar todos los clavos y tornillos, tapar los agujeros
 - Quitar y pintar cualquier rejilla de calefacción y luego reinstalar
 - Paredes: Greek Villa SW 7551 (Eggshell)
 - Todas las puertas: Polar Bear (Semi Gloss)
