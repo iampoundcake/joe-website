@@ -1,6 +1,6 @@
 ---
 title: "painting list (temp)"
-description: "list to keep track of paint details "
+description: "list to keep track of paint details"
 publishDate: "7 May 2024"
 tags: ["house", "temporary"]
 draft: false
