@@ -19,7 +19,6 @@ these are my rules for myself.
 
 ## upcoming books (in no particular order)
 
-- The Atlas Six, _Olivie Blake_
 - The Secret History, _Donna Tartt_
 - Fourth Wing (#1 The Empyrean), _Rebecca Yarros_
 - A Little Luck, _Claudia Piñeiro_
@@ -44,6 +43,7 @@ _all links are amazon affiliate links. if you've enjoyed a book review or apprec
 9. [Alone With You in the Ether, _Olivie Blake_](https://amzn.to/4agz7zU)
 10. [Beloved, _Toni Morrison_](https://amzn.to/4baUe6Q)
 11. [Foster, _Claire Keegan_](https://amzn.to/4baUouY)
+12. [The Atlas Six, _Olivie Blake_](https://amzn.to/44uXsQa)
 
 ## faves from 2023
 
