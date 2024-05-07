@@ -1,8 +1,8 @@
 ---
-title: "health & wellness 🧘‍♀️ (as of 4/23)"
-description: "tracking intake, goals, and other things"
-publishDate: "23 Apr 2024"
-tags: ["health", "betterment"]
+title: "painting list (temp)"
+description: "list to keep track of paint details"
+publishDate: "7 May 2024"
+tags: ["house", "temporary"]
 draft: false
 ---
 
