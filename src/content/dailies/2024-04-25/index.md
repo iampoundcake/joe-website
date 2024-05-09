@@ -1,7 +1,7 @@
 ---
 title: "No. 6"
 description: "going dark mode for the next few days"
-publishDate: “25 Apr 2024"
+publishDate: "25 Apr 2024"
 coverImage:
   src: "./IMG_5013.jpg"
   alt: ""
