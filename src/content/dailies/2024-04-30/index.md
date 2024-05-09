@@ -3,8 +3,8 @@ title: "No. 10"
 description: "three cheers for the birthday boi"
 publishDate: "30 Apr 2024"
 coverImage:
-  src: "./IMG_5024.jpg"
-  alt: "a gentlecat."
+  src: "./img_0430.jpg"
+  alt: "katie always gets me two cards 😍."
 tags: ["good", "happy"]
 draft: false
 ---
