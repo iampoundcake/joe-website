@@ -6,7 +6,7 @@ tags: ["temp", "checklist"]
 draft: false
 ---
 
-Nota: debe estar terminado para el viernes, el piso estara en la casa el viernes y se debe empezar el trabajo en la cocina primero. Carmelo tiene que terminar la cocina antes del viernes. Preferentemente el primer piso. 
+Nota: debe estar terminado para el viernes, el piso estara en la casa el viernes y se debe empezar el trabajo en la cocina primero. Carmello tiene que terminar la cocina antes del viernes. Preferentemente el primer piso. 
 
 ## Entrada principal/Pasillo/Escaleras 
 
