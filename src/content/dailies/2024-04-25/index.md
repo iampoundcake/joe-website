@@ -13,49 +13,47 @@ _This post is a retrospective._
 
 ## hours of sleep
 
-7.4
+6.8
 
 ## poi (points of interest)
-
-- was feeling unmotivated and wondered what was going on and remembered that the night before, I had drank AND didn’t really adhere to any of my habits lol so, it makes sense.
-- the disparity between things that should get done, and things i can will myself to can feel so wide
-- therapy thoughts: relationships are always a work in progress. it’s part of the process. assuming one can fix a relationship for good is to believe in a false promise.
-- therapy thoughts pt. 2: you’ll never fully conquer your natural blind spots. but much like a blind spot, over time you will gather the sixth sense that something _may_ approach that blind spot, and having the awareness to know when it passes.
+- antsy to get this move going!
+- spent far too long thinking through typefaces today
+- am i at the place where i should start planning my lunches? 
+- started a new book, the atlas six
+- setting up utils for the house. can’t believe we get the keys on monday.
+- cate and i went to a great spot called the boardroom underneath the hugh building
+- nightcap, dinner and drinks at the archer with allison and katie 😀
 
 ## song stuck in my head
-
-can’t remember
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/14dJexYlvd3t3XAtD1pYW1?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
 ## gratitude
-
-- i remembered thinking how happy i’d be once we were done with closing because it would alleviate the low hum of anxiety
-- having a clean home. it’s a nice blank slate before the chaos of our move hits.
--
+- it’s probably because i have to go in 4x a week, but that thursday night feeling hits
+- happy hour with friends
+- been a while since we’ve had a few days of good weather in a row
 
 ## reminders
-
-- needed to get some things together for monday
-- outback is on its way to carmax
-- set up utils
+- pick paint colors
+- pick up the house before photog 
+- 
 
 ## food log
-
-#### morning:
-
-- coffee
-- vitamins and supplements
-- protein shake (pea + whey)
+#### morning: 
+- blue berries + pea protein and whey protein
+- vitamins and supplements (will add to garden)
+- iced coffee
 
 #### lunch:
-
-- steak and rice
+- potbelly’s - big turkey & provolone, with everything but oil and mustard 🤤
+- oatmeal chocolate cookie
 
 #### afternoon:
+- weak iced coffee
 
 #### evening
-
-- bang cookies 🤤
-- mixed rice, chicken, spinach
+- 3 cocktails 🥴 - the cocktails at the boardroom were a+
+![cocktails at boardroom](./boardroom.webp)
+- duck breast burger, brocolli salad [the archer](https://www.archerbar.com/)
 
 ## habit tracking
 
@@ -63,10 +61,9 @@ can’t remember
 - [x] read
 - [ ] protein
 - [x] vitamins & supplements
-- [x] meditate
+- [ ] meditate
 - [ ] training and/or mobility (link to log)
 
 #### comments
 
-- after going in mon - thur, on thur night i just break out of my disciplined shell lol, sort of like a cheat day, but for habits/discipline.. not always, necessarily in a food way. not sure what that is. however, i do acknowledge that it perpetuates a cycle of mon-thur is structured, balanced, disciplined, then fri and sat are like free-for-alls. finally, on sunday, i’ll come out of that hole readying myself for Monday.
-- this might be pretty normal, but i still feel guilty about it? it’s the weekend for a reason lol but i can’t shake the feeling that this cycle is not the best but i don’t know where that judgment comes from 🤔
+
