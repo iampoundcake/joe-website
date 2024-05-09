@@ -3,7 +3,7 @@ title: "No. 6"
 description: "going dark mode"
 publishDate: “30 Apr 2024"
 coverImage:
-  src: "./IMG.webp"
+  src: "./IMG_5013.webp"
   alt: ""
 tags: ["excited", “unmotivated"]
 draft: false
