@@ -35,5 +35,5 @@ DN2 Productions,
 Maximum Effort,
 RCG Productions,
 3 Arts Entertainment,
-FXP
+FX Productions
 
