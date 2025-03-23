@@ -9,9 +9,9 @@ interface Props {
 const { media } = Astro.props;
 ---
 
-<li class="w-full md:w-1/2 lg:w-1/2 p-2">
+<li class="w-full p-2 md:w-1/2 lg:w-1/2">
 	<a
-		class="block h-full rounded-2xl bg-[#FEC686] px-6 py-3 text-center text-black hover:scale-105 transition-transform"
+		class="block h-full rounded-2xl bg-[#FEC686] px-6 py-3 text-center text-black transition-transform hover:scale-105"
 		href={`/media-library/${media.slug}`}
 	>
 		<div class="mx-auto h-[200px] w-[200px]">
@@ -32,9 +32,7 @@ const { media } = Astro.props;
 				media.data.tags.length > 0 && (
 					<div class="mt-2 flex flex-wrap justify-center gap-2">
 						{media.data.tags.map((tag) => (
-							<span class="rounded-md bg-[#5D6B00] px-2 py-1 text-xs text-[#FFFFFF]">
-								{tag}
-							</span>
+							<span class="rounded-md bg-[#5D6B00] px-2 py-1 text-xs text-[#FFFFFF]">{tag}</span>
 						))}
 					</div>
 				)
