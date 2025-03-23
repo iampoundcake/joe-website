@@ -32,6 +32,14 @@ import {
 } from "@/data/media-library";
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+	function sanitizeTag(tag: string) {
+		return tag
+			.replace(/['"]/g, '') // Remove quotes
+			.replace(/[^\w\s-]/g, '') // Remove special characters and emojis
+			.trim()
+			.toLowerCase(); // Normalize to lowercase
+	}
+
 	const allPosts = await getAllPosts();
 	const allPostsByDate = sortPostMDByDate(allPosts);
 
@@ -56,12 +64,17 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 	];
 
 	return uniqueTags.flatMap((tag) => {
-		const filterPosts = allPostsByDate.filter((post) => post.data.tags.includes(tag));
-		const filterDailies = allDailiesByDate.filter((daily) => daily.data.tags.includes(tag));
-		const filterGarden = allGardenByDate.filter((garden) => garden.data.tags.includes(tag));
-		const filterTraining = allTrainingByDate.filter((training) => training.data.tags.includes(tag));
+		const sanitizedTag = sanitizeTag(tag);
+		if (!sanitizedTag) return []; // Skip empty tags
+		
+		const filterPosts = allPostsByDate.filter((post) => 
+			post.data.tags.map(t => sanitizeTag(t)).includes(sanitizedTag)
+		);
+		const filterDailies = allDailiesByDate.filter((daily) => daily.data.tags.map(t => sanitizeTag(t)).includes(sanitizedTag));
+		const filterGarden = allGardenByDate.filter((garden) => garden.data.tags.map(t => sanitizeTag(t)).includes(sanitizedTag));
+		const filterTraining = allTrainingByDate.filter((training) => training.data.tags.map(t => sanitizeTag(t)).includes(sanitizedTag));
 		const filterMediaLibrary = allMediaLibraryByDate.filter((media) =>
-			media.data.tags.includes(tag)
+			media.data.tags.map(t => sanitizeTag(t)).includes(sanitizedTag)
 		);
 
 		const filters = [
@@ -74,10 +87,11 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 
 		return paginate(filters, {
 			pageSize: 10,
-			params: { tag },
+			params: { tag: sanitizedTag },
 		});
 	});
 };
+
 
 interface Props {
 	page: Page<CollectionEntry<"post, dailies, garden, training, media-library">>;
