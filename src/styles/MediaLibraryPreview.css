@@ -1,0 +1,37 @@
+@layer components {
+  .media-card {
+    @apply block h-full rounded-2xl bg-[#FFCBA4] px-4 py-4 text-center text-black transition-transform;
+  }
+
+  .media-card:hover {
+    @apply scale-105;
+  }
+
+  .media-cover {
+    @apply mx-auto rounded-lg object-cover w-full max-w-[200px] aspect-[1/1];
+  }
+
+  .media-content {
+    @apply mt-3 font-mono;
+  }
+
+  .media-title {
+    @apply text-lg;
+  }
+
+  .media-description {
+    @apply mt-1 text-sm;
+  }
+
+  .media-date {
+    @apply mt-2 text-sm;
+  }
+
+  .media-tags {
+    @apply mt-2 flex flex-wrap justify-center gap-2;
+  }
+
+  .media-tag {
+    @apply rounded-md bg-[#333333] px-2 py-1 text-xs text-[#FFCBA4];
+  }
+} 

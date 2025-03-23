@@ -45,13 +45,11 @@ const paginationProps = {
 <PageLayout meta={meta}>
 	<h1 class="title mb-6">Media Library 📼</h1>
 	<div class="grid gap-y-16 sm:grid-cols-[3fr_1fr] sm:gap-x-8">
-		<section aria-label="Dailies list">
-			<ul class="grid grid-cols-1 gap-4 text-start sm:grid-cols-2">
-				{
-					page.data.map((m) => {
-						return <MediaLibraryPreview media={m} />;
-					})
-				}
+		<section aria-label="Media Library list">
+			<ul class="flex flex-wrap -mx-4">
+				{page.data.map((media) => (
+					<MediaLibraryPreview media={media} />
+				))}
 			</ul>
 			<Pagination {...paginationProps} />
 		</section>

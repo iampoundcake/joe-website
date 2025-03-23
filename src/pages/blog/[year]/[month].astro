@@ -1,0 +1,49 @@
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  
+  // Get unique year/month combinations from filenames
+  const dates = new Set();
+  posts.forEach(post => {
+    const match = post.id.match(/.*-(\d{4})(\d{2})/);
+    if (match) {
+      dates.add(`${match[1]}/${match[2]}`);
+    }
+  });
+
+  return Array.from(dates).map(date => {
+    const [year, month] = date.split('/');
+    return { params: { year, month } };
+  });
+}
+
+const { year, month } = Astro.params;
+
+// Get posts for this year/month
+const posts = await getCollection('blog', (post) => {
+  const match = post.id.match(/.*-(\d{4})(\d{2})/);
+  return match && match[1] === year && match[2] === month;
+});
+
+// Sort posts by date
+const sortedPosts = posts.sort((a, b) => 
+  b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+<div>
+  <h1>Posts from {new Date(`${year}-${month}-01`).toLocaleString('default', { month: 'long', year: 'numeric' })}</h1>
+  
+  <ul>
+    {sortedPosts.map(post => (
+      <li>
+        <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+      </li>
+    ))}
+  </ul>
+
+  <!-- Optional: Add month navigation -->
+  <div class="month-nav">
+    <!-- Previous/Next month links could be added here -->
+  </div>
+</div>

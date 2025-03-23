@@ -9,37 +9,37 @@ interface Props {
 const { media } = Astro.props;
 ---
 
-<li>
+<li class="w-full md:w-1/2 lg:w-1/2 p-2">
 	<a
-		class="block h-full rounded-3xl bg-accent px-8 py-3 text-center text-bgColor"
+		class="block h-full rounded-2xl bg-[#FEC686] px-6 py-3 text-center text-black hover:scale-105 transition-transform"
 		href={`/media-library/${media.slug}`}
 	>
-		<div class="aspect-h-1 aspect-w-1">
+		<div class="mx-auto h-[200px] w-[200px]">
 			<img
-				class="h-full w-full rounded-3xl object-cover object-center"
+				class="h-full w-full rounded-lg object-cover"
 				src={media.data.coverImage.src.src}
 				alt={media.data.coverImage.alt}
-				width={media.data.coverImage.src.width}
-				height={media.data.coverImage.src.height}
-			/>ƒ
+				width={200}
+				height={200}
+			/>
 		</div>
-		<div class="mt-4">
-			<h2>{media.data.title}</h2>
-			<p class="mt-0.5 text-xs italic">
+		<div class="mt-3 font-mono">
+			<h2 class="text-sm font-bold">{media.data.title}</h2>
+			<p class="mt-2 text-sm">
 				<FormattedDate date={media.data.publishDate} />
 			</p>
-			<ul class="mt-2 flex items-center justify-center gap-x-2 text-xs">
-				{
-					media.data.tags.map((tag) => {
-						return (
-							<li class="rounded bg-white px-3 py-1 text-xs text-accent dark:bg-leaf-green dark:text-white">
+			{
+				media.data.tags.length > 0 && (
+					<div class="mt-2 flex flex-wrap justify-center gap-2">
+						{media.data.tags.map((tag) => (
+							<span class="rounded-md bg-[#5D6B00] px-2 py-1 text-xs text-[#FFFFFF]">
 								{tag}
-							</li>
-						);
-					})
-				}
-			</ul>
-			<p class="mt-1 line-clamp-3">{media.data.description}</p>
+							</span>
+						))}
+					</div>
+				)
+			}
+			<p class="mt-2 text-xs italic">{media.data.description}</p>
 		</div>
 	</a>
 </li>

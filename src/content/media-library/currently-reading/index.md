@@ -3,7 +3,7 @@ title: "currently reading: a canticle for leibowitz"
 description: "future dystopia, faith, and the making of myths"
 publishDate: "24 Jun 2024"
 coverImage:
-  src: "./canticle.jpg"
+  src: "./cover.jpg"
   alt: "cover of A Canticle for Leibowitz"
 tags: ["📖", "scifi"]
 draft: false

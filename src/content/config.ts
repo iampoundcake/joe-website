@@ -125,14 +125,14 @@ const mediaLibraryCollection = defineCollection({
 				.string()
 				.optional()
 				.transform((str) => (str ? new Date(str) : undefined)),
-			coverImage: z
-				.object({
-					src: image(),
-					alt: z.string(),
-				})
-				.optional(),
+			coverImage: z.object({
+				src: image({
+					allowRelativePaths: true
+				}).default('@/assets/defaults/placeholder.jpg'),
+				alt: z.string()
+			}),
 			draft: z.boolean().default(false),
-			tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
+			tags: z.array(z.string()).default([]),
 			ogImage: z.string().optional(),
 		}),
 });
