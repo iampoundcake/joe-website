@@ -1,0 +1,147 @@
+---
+import type { GetStaticPaths, Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+
+import Pagination from "@/components/Paginator.astro";
+import CollectionPreview from "@/components/CollectionPreview.astro";
+import PageLayout from "@/layouts/Base.astro";
+import {
+	getAllPosts,
+	getUniqueTags as getPostUniqueTags,
+	sortMDByDate as sortPostMDByDate,
+} from "@/data/post";
+import {
+	getAllWeeklies,
+	getUniqueTags as getWeeklyUniqueTags,
+	sortMDByDate as sortWeeklyMDByDate,
+} from "@/data/weeklies";
+import {
+	getAllGarden,
+	getUniqueTags as getGardenUniqueTags,
+	sortMDByDate as sortGardenMDByDate,
+} from "@/data/garden";
+import {
+	getAllTraining,
+	getUniqueTags as getTrainingUniqueTags,
+	sortMDByDate as sortTrainingMDByDate,
+} from "@/data/training";
+import {
+	getAllMediaLibrary,
+	getUniqueTags as getMediaLibraryUniqueTags,
+	sortMDByDate as sortMediaLibraryMDByDate,
+} from "@/data/media-library";
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+	function sanitizeTag(tag: string) {
+		return tag
+			.replace(/['"]/g, "") // Remove quotes
+			.replace(/[^\w\s-]/g, "") // Remove special characters and emojis
+			.trim()
+			.toLowerCase(); // Normalize to lowercase
+	}
+
+	const allPosts = await getAllPosts();
+	const allPostsByDate = sortPostMDByDate(allPosts);
+
+	const allWeeklies = await getAllWeeklies();
+	const allWeekliesByDate = sortWeeklyMDByDate(allWeeklies);
+
+	const allGarden = await getAllGarden();
+	const allGardenByDate = sortGardenMDByDate(allGarden);
+
+	const allTraining = await getAllTraining();
+	const allTrainingByDate = sortTrainingMDByDate(allTraining);
+
+	const allMediaLibrary = await getAllMediaLibrary();
+	const allMediaLibraryByDate = sortMediaLibraryMDByDate(allMediaLibrary);
+
+	const uniqueTags = [
+		...getPostUniqueTags(allPostsByDate),
+		...getWeeklyUniqueTags(allWeekliesByDate),
+		...getGardenUniqueTags(allGardenByDate),
+		...getTrainingUniqueTags(allTrainingByDate),
+		...getMediaLibraryUniqueTags(allMediaLibraryByDate),
+	];
+
+	return uniqueTags.flatMap((tag) => {
+		const sanitizedTag = sanitizeTag(tag);
+		if (!sanitizedTag) return []; // Skip empty tags
+
+		const filterPosts = allPostsByDate.filter((post) =>
+			post.data.tags.map((t) => sanitizeTag(t)).includes(sanitizedTag),
+		);
+		const filterWeeklies = allWeekliesByDate.filter((weekly) =>
+			weekly.data.tags.map((t) => sanitizeTag(t)).includes(sanitizedTag),
+		);
+		const filterGarden = allGardenByDate.filter((garden) =>
+			garden.data.tags.map((t) => sanitizeTag(t)).includes(sanitizedTag),
+		);
+		const filterTraining = allTrainingByDate.filter((training) =>
+			training.data.tags.map((t) => sanitizeTag(t)).includes(sanitizedTag),
+		);
+		const filterMediaLibrary = allMediaLibraryByDate.filter((media) =>
+			media.data.tags.map((t) => sanitizeTag(t)).includes(sanitizedTag),
+		);
+
+		const filters = [
+			...filterPosts,
+			...filterWeeklies,
+			...filterGarden,
+			...filterTraining,
+			...filterMediaLibrary,
+		];
+
+		return paginate(filters, {
+			pageSize: 10,
+			params: { tag: sanitizedTag },
+		});
+	});
+};
+
+interface Props {
+	page: Page<CollectionEntry<"post" | "weeklies" | "garden" | "training" | "media-library">>;
+}
+
+const { page } = Astro.props;
+const { tag } = Astro.params;
+
+const meta = {
+	description: `View all collections with the tag - ${tag}`,
+	title: `Tag: ${tag}`,
+};
+
+const paginationProps = {
+	...(page.url.prev && {
+		prevUrl: {
+			text: `← Previous Tags`,
+			url: page.url.prev,
+		},
+	}),
+	...(page.url.next && {
+		nextUrl: {
+			text: `Next Tags →`,
+			url: page.url.next,
+		},
+	}),
+};
+---
+
+<PageLayout meta={meta}>
+	<h1 class="title mb-6 flex items-center">
+		<a class="text-accent sm:hover:underline" href="/tags/">Tags</a>
+		<span class="me-3 ms-2">→</span>
+		<span class="text-xl">#{tag}</span>
+	</h1>
+	<section aria-label="Article list">
+		<ul class="space-y-8">
+			{
+				page.data.map((c) => (
+					<li class="flex flex-col flex-wrap gap-2 sm:flex-row [&_q]:basis-full">
+						<CollectionPreview as="h2" item={c} withDesc />
+					</li>
+				))
+			}
+		</ul>
+		<Pagination {...paginationProps} />
+	</section>
+</PageLayout>

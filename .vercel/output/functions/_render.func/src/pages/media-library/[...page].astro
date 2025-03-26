@@ -1,0 +1,437 @@
+---
+// Add this line to enable SSR for this route
+export const prerender = false;
+
+import type { GetStaticPaths, Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import PageLayout from "../../layouts/Base.astro";
+import MediaLibraryPreview from "../../components/MediaLibraryPreview.astro";
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const mediaEntries = await getCollection("media-library", ({ data }) => !data.draft);
+	const sortedEntries = mediaEntries.sort(
+		(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+	);
+
+	// Get all unique tags
+	const allTags = [...new Set(mediaEntries.flatMap((post) => post.data.tags))];
+
+	return paginate(sortedEntries, {
+		pageSize: 6,
+		props: { allTags }, // Pass tags to the page props
+	});
+}) satisfies GetStaticPaths;
+
+type Props = {
+	page: Page<CollectionEntry<"media-library">>;
+	allTags: string[];
+};
+
+// Initialize with fallback values for SSR
+const { page, allTags } = Astro.props as Partial<Props>;
+
+// Handle SSR when props are not available
+const ssrData = async () => {
+	if (!page || !allTags) {
+		const mediaEntries = await getCollection("media-library", ({ data }) => !data.draft);
+		const sortedEntries = mediaEntries.sort(
+			(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+		);
+		return {
+			pageData: {
+				data: sortedEntries.slice(0, 6),
+				url: {
+					next: sortedEntries.length > 6 ? "/media-library/2" : undefined,
+					prev: undefined,
+				},
+				currentPage: 1,
+				lastPage: Math.ceil(sortedEntries.length / 6),
+				total: sortedEntries.length,
+			},
+			tagData: [...new Set(mediaEntries.flatMap((post) => post.data.tags))],
+			allEntries: sortedEntries,
+		};
+	}
+
+	// Get all entries for client-side pagination
+	const mediaEntries = await getCollection("media-library", ({ data }) => !data.draft);
+	const sortedEntries = mediaEntries.sort(
+		(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+	);
+
+	return {
+		pageData: page,
+		tagData: allTags,
+		allEntries: sortedEntries,
+	};
+};
+
+const { pageData, tagData, allEntries } = await ssrData();
+
+// Stringify the entries for client-side use
+const serializedEntries = JSON.stringify(
+	allEntries.map((entry) => ({
+		slug: entry.slug,
+		data: {
+			title: entry.data.title,
+			publishDate: entry.data.publishDate.toISOString(),
+			description: entry.data.description,
+			tags: entry.data.tags,
+			coverImage: {
+				src: {
+					src:
+						typeof entry.data.coverImage.src === "string"
+							? entry.data.coverImage.src
+							: entry.data.coverImage.src.src,
+				},
+				alt: entry.data.coverImage.alt,
+			},
+		},
+	})),
+);
+---
+
+<PageLayout meta={{ title: "Media Library" }}>
+	<div class="grid grid-cols-[3fr,1fr] gap-8">
+		<div class="flex flex-col items-center">
+			<h1 class="title mb-8 w-full text-left">media library ▶️</h1>
+			<div
+				id="media-grid"
+				class="grid w-full grid-cols-2 gap-4"
+				data-current-page={pageData.currentPage || 1}
+				data-total-items={pageData.total || allEntries.length}
+				data-entries={serializedEntries}
+			>
+				{
+					pageData.data.map((media) => (
+						<div class="p-2">
+							<a
+								class="block h-full rounded-2xl bg-[#FEC686] px-6 py-3 text-center text-black transition-transform hover:scale-105"
+								href={`/media-library/${media.slug}`}
+							>
+								<div class="flex justify-center">
+									<img
+										class="h-[200px] w-[200px] rounded-lg object-cover"
+										src={media.data.coverImage.src.src}
+										alt={media.data.coverImage.alt}
+										width="200"
+										height="200"
+									/>
+								</div>
+								<div class="mt-3 font-mono">
+									<h2 class="text-sm font-bold">{media.data.title}</h2>
+									<p class="mt-2 text-sm">
+										{new Date(media.data.publishDate).getDate()}{" "}
+										{new Date(media.data.publishDate).toLocaleString("default", { month: "short" })}{" "}
+										{new Date(media.data.publishDate).getFullYear()}
+									</p>
+									{media.data.tags.length > 0 && (
+										<div class="mt-2 flex flex-wrap justify-center gap-2">
+											{media.data.tags.map((tag) => (
+												<span class="rounded-md bg-[#5D6B00] px-2 py-1 text-xs text-[#FFFFFF]">
+													{tag}
+												</span>
+											))}
+										</div>
+									)}
+									<p class="mt-2 text-xs italic">{media.data.description}</p>
+								</div>
+							</a>
+						</div>
+					))
+				}
+			</div>
+			{
+				(pageData.currentPage < pageData.lastPage || pageData.url?.next) && (
+					<button
+						id="load-more-btn"
+						class="mt-16 rounded-lg bg-[#5D6B00] px-6 py-2 text-white transition-colors hover:bg-[#5D6B00]"
+					>
+						Load More Media
+					</button>
+				)
+			}
+
+			<!-- Hidden debug output for troubleshooting -->
+			<div
+				id="debug-output"
+				class="mt-4 w-full rounded bg-gray-800 p-2 text-left text-xs"
+				style="display: none;"
+			>
+			</div>
+
+			<!-- Debug toggle button - only visible in dev mode -->
+			{
+				import.meta.env.DEV && (
+					<button
+						id="toggle-debug"
+						class="mt-4 rounded bg-gray-700 px-2 py-1 text-xs text-gray-300"
+					>
+						Toggle Debug Info
+					</button>
+				)
+			}
+		</div>
+
+		<aside class="sticky top-20 h-fit">
+			<h2 class="mb-4 flex items-center text-lg font-semibold">
+				<svg
+					aria-hidden="true"
+					class="mr-2 h-6 w-6"
+					fill="none"
+					stroke="currentColor"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="1.5"
+					viewBox="0 0 24 24"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path d="M0 0h24v24H0z" fill="none" stroke="none"></path>
+					<path
+						d="M7.859 6h-2.834a2.025 2.025 0 0 0 -2.025 2.025v2.834c0 .537 .213 1.052 .593 1.432l6.116 6.116a2.025 2.025 0 0 0 2.864 0l2.834 -2.834a2.025 2.025 0 0 0 0 -2.864l-6.117 -6.116a2.025 2.025 0 0 0 -1.431 -.593z"
+					></path>
+					<path d="M17.573 18.407l2.834 -2.834a2.025 2.025 0 0 0 0 -2.864l-7.117 -7.116"></path>
+					<path d="M6 9h-.01"></path>
+				</svg>
+				Tags
+			</h2>
+			<ul class="flex flex-wrap gap-2 text-bgColor">
+				{
+					tagData &&
+						tagData.map((tag) => (
+							<li>
+								<a
+									aria-label={`View all posts with the tag: ${tag}`}
+									class="flex items-center justify-center rounded-lg bg-accent p-1"
+									href={`/tags/${tag}`}
+								>
+									{tag}
+								</a>
+							</li>
+						))
+				}
+			</ul>
+			<span class="mt-4 block sm:text-end">
+				<a aria-label="View all blog categories" class="sm:hover:text-accent" href="/tags/">
+					View all →
+				</a>
+			</span>
+		</aside>
+	</div>
+</PageLayout>
+
+<script>
+	// Debug helper function
+	function debug(message) {
+		console.log(message);
+		const debugEl = document.getElementById("debug-output");
+		if (debugEl) {
+			// Don't automatically show the debug panel
+			debugEl.innerHTML += `<div>${message}</div>`;
+		}
+	}
+
+	// Helper function to format date
+	function formatDate(dateString) {
+		const date = new Date(dateString);
+		return `${date.getDate()} ${date.toLocaleString("default", { month: "short" })} ${date.getFullYear()}`;
+	}
+
+	// Set up debug toggle button
+	function setupDebugToggle() {
+		const toggleBtn = document.getElementById("toggle-debug");
+		const debugEl = document.getElementById("debug-output");
+
+		if (toggleBtn && debugEl) {
+			toggleBtn.addEventListener("click", () => {
+				if (debugEl.style.display === "none") {
+					debugEl.style.display = "block";
+				} else {
+					debugEl.style.display = "none";
+				}
+			});
+		}
+	}
+
+	// Main initialization
+	function initializeMediaLibrary() {
+		debug("Initializing media library...");
+
+		// Get entries from the data attribute
+		try {
+			const grid = document.getElementById("media-grid");
+			if (!grid) {
+				debug("ERROR: Media grid not found");
+				return;
+			}
+
+			const serializedEntries = grid.getAttribute("data-entries");
+			if (!serializedEntries) {
+				debug("ERROR: No entries data found");
+				return;
+			}
+
+			const allEntries = JSON.parse(serializedEntries);
+			debug(`Found ${allEntries.length} total entries`);
+
+			// Get already displayed items to avoid duplicates
+			const displayedSlugs = new Set();
+
+			// Find all existing items and track their slugs
+			const existingItems = document.querySelectorAll("#media-grid > div a");
+			existingItems.forEach((item) => {
+				const href = item.getAttribute("href");
+				if (href) {
+					// Extract slug from href (format: /media-library/{slug})
+					const slug = href.split("/").pop();
+					if (slug) {
+						displayedSlugs.add(slug);
+						debug(`Added initially displayed slug: ${slug}`);
+					}
+				}
+			});
+
+			debug(
+				`Already displaying ${displayedSlugs.size} items with slugs: ${Array.from(displayedSlugs).join(", ")}`,
+			);
+
+			let currentPage = 1;
+			const pageSize = 6;
+
+			// Set up load more button handler
+			const loadMoreBtn = document.getElementById("load-more-btn");
+			if (!loadMoreBtn) {
+				debug("ERROR: Load more button not found");
+				return;
+			}
+
+			debug("Found load more button, attaching click handler");
+
+			loadMoreBtn.addEventListener("click", function () {
+				debug("Load more button clicked");
+
+				currentPage++;
+				debug(`Loading page ${currentPage}`);
+
+				// Before finding new entries, refresh our tracking of what's displayed
+				displayedSlugs.clear();
+				const currentItems = document.querySelectorAll("#media-grid > div a");
+				currentItems.forEach((item) => {
+					const href = item.getAttribute("href");
+					if (href) {
+						const slug = href.split("/").pop();
+						if (slug) {
+							displayedSlugs.add(slug);
+							debug(`Tracking currently displayed slug: ${slug}`);
+						}
+					}
+				});
+
+				// Find entries that haven't been displayed yet
+				const remainingEntries = allEntries.filter((entry) => !displayedSlugs.has(entry.slug));
+				debug(`${remainingEntries.length} entries not yet displayed`);
+
+				if (remainingEntries.length === 0) {
+					debug("No more new entries to load");
+					loadMoreBtn.style.display = "none";
+					return;
+				}
+
+				// Get the next batch of entries that haven't been displayed yet
+				const startIndex = 0; // Always start from first remaining item
+				const endIndex = Math.min(remainingEntries.length, pageSize);
+				const itemsToAdd = remainingEntries.slice(startIndex, endIndex);
+
+				debug(`Adding ${itemsToAdd.length} new items`);
+
+				// Add each new item
+				itemsToAdd.forEach((entry, index) => {
+					debug(`Adding item ${index + 1}: ${entry.data.title} (${entry.slug})`);
+
+					// Double-check this isn't already in the DOM (avoid duplicates)
+					const existing = document.querySelector(`a[href="/media-library/${entry.slug}"]`);
+					if (existing) {
+						debug(`SKIPPING: Item ${entry.slug} is already displayed`);
+						return; // Skip this item
+					}
+
+					// Add slug to displayed set to avoid duplicates
+					displayedSlugs.add(entry.slug);
+
+					// Create a div wrapper
+					const itemWrapper = document.createElement("div");
+					itemWrapper.className = "p-2";
+
+					// Format the date
+					const formattedDate = formatDate(entry.data.publishDate);
+
+					// Build the HTML content
+					itemWrapper.innerHTML = `
+						<a
+							class="block h-full rounded-2xl bg-[#FEC686] px-6 py-3 text-center text-black transition-transform hover:scale-105"
+							href="/media-library/${entry.slug}"
+						>
+							<div class="flex justify-center">
+								<img
+									class="h-[200px] w-[200px] rounded-lg object-cover"
+									src="${entry.data.coverImage.src.src}"
+									alt="${entry.data.coverImage.alt || ""}"
+									width="200"
+									height="200"
+								/>
+							</div>
+							<div class="mt-3 font-mono">
+								<h2 class="text-sm font-bold">${entry.data.title}</h2>
+								<p class="mt-2 text-sm">${formattedDate}</p>
+								${
+									entry.data.tags && entry.data.tags.length > 0
+										? `<div class="mt-2 flex flex-wrap justify-center gap-2">
+											${entry.data.tags
+												.map(
+													(tag) =>
+														`<span class="rounded-md bg-[#5D6B00] px-2 py-1 text-xs text-[#FFFFFF]">${tag}</span>`,
+												)
+												.join("")}
+										</div>`
+										: ""
+								}
+								<p class="mt-2 text-xs italic">${entry.data.description || ""}</p>
+							</div>
+						</a>
+					`;
+
+					// Add to grid
+					grid.appendChild(itemWrapper);
+				});
+
+				// Update the remaining entries count
+				const remainingAfterLoad = allEntries.filter((entry) => !displayedSlugs.has(entry.slug));
+
+				// Hide button if we've loaded all entries
+				if (remainingAfterLoad.length === 0) {
+					debug("No more entries to load, hiding button");
+					loadMoreBtn.style.display = "none";
+				}
+			});
+
+			debug("Media library initialization complete");
+		} catch (error) {
+			debug(`ERROR: ${error.message}`);
+		}
+	}
+
+	// Run when the page loads
+	document.addEventListener("DOMContentLoaded", function () {
+		initializeMediaLibrary();
+		setupDebugToggle();
+	});
+
+	// Also try to run right away in case the DOM is already loaded
+	if (document.readyState === "complete" || document.readyState === "interactive") {
+		setTimeout(function () {
+			initializeMediaLibrary();
+			setupDebugToggle();
+		}, 1);
+	}
+</script>

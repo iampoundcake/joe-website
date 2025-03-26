@@ -1,0 +1,95 @@
+---
+import SocialList from "@/components/SocialList.astro";
+import CollectionPreview from "@/components/CollectionPreview.astro";
+import PageLayout from "@/layouts/Base.astro";
+import { getAllPosts, sortMDByDate } from "@/data/post";
+
+const MAX_POSTS = 10;
+const allPosts = await getAllPosts();
+const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
+---
+
+<PageLayout meta={{ title: "Home" }}>
+	<section>
+		<h1 class="title mb-6">welcome 👋</h1>
+		<p class="mb-4">
+			you've stumbled upon my (joe's) online commonplace. this is an area where i log, park, and
+			expand upon ideas and thoughts that linger. <br /><br />
+			please visit my garden/personal wiki <a style="color:#fec686" href="/garden/">HERE</a>. <br
+			/><br />thanks for stopping by.
+		</p>
+		<SocialList />
+	</section>
+	<section aria-label="Blog post list" class="mt-16">
+		<h2 class="title mb-4 text-xl">posts 📓</h2>
+
+		<ul class="space-y-4">
+			{
+				allPostsByDate.map((c) => (
+					<li class="flex flex-col gap-x-2 sm:flex-row">
+						<CollectionPreview item={c} />
+					</li>
+				))
+			}
+		</ul>
+	</section>
+
+	<section class="mt-16">
+		<h1 class="title mb-6">book challenge 📖</h1>
+
+		<p>2024 list <a style="color:#fec686" href="/post/book-challenge">here.</a></p><br />
+
+		<table>
+			<tr>
+				<td class="column1">books read</td>
+				<td class="column2">12</td>
+			</tr>
+			<tr>
+				<td class="column1">current</td>
+				<td class="column2"
+					>Fourth Wing (#1 The Empyrean), Rebecca Yarros</td
+				>
+			</tr>
+			<tr>
+				<td class="column1">up next</td>
+				<td class="column2">undecided</td>
+			</tr>
+		</table>
+	</section>
+
+	<section class="mt-16">
+		<h2 class="title mb-4 text-xl">current 📌</h2>
+		<table>
+			<tr>
+				<td class="column1">version</td>
+				<td class="column2">1.0.1 alpha</td>
+			</tr>
+			<tr>
+				<td class="column1">alias</td>
+				<td class="column2">poundcake</td>
+			</tr>
+			<tr>
+				<td class="column1">location</td>
+				<td class="column2">new jersey</td>
+			</tr>
+			<tr>
+				<td class="column1"><a style="color:#fec686" href="/resume">work 👈</a></td>
+				<td class="column2">marketing manager @ investment advisory/management firm</td>
+			</tr>
+			<tr>
+				<td class="column1">writing stack</td>
+				<td class="column2">lamy safari fountain pen / sailor #16 night dream / lechtturm 1917</td>
+			</tr>
+			<tr>
+				<td class="column1">planner</td>
+				<td class="column2">hobonichi techo cousin (a5)</td>
+				<tr>
+					<td class="column1">obsession</td>
+					<td class="column2"
+						>tek it - cafuné</td
+					>
+				</tr>
+			</tr>
+		</table>
+	</section>
+</PageLayout>
