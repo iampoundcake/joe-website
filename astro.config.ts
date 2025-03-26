@@ -9,6 +9,7 @@ import { remarkReadingTime } from "./src/utils/remark-reading-time";
 import icon from "astro-icon";
 import expressiveCode from "astro-expressive-code";
 import { expressiveCodeOptions } from "./src/site.config";
+import vercel from '@astrojs/vercel/serverless';
 
 // https://astro.build/config
 export default defineConfig({
@@ -42,15 +43,27 @@ export default defineConfig({
 	],
 	image: {
 		domains: ["webmention.io"],
+		service: {
+			entrypoint: 'astro/assets/services/sharp'
+		}
 	},
 	// https://docs.astro.build/en/guides/prefetch/
 	prefetch: true,
 	vite: {
 		plugins: [rawFonts([".ttf", ".woff"])],
 		optimizeDeps: {
-			exclude: ["@resvg/resvg-js"],
+			exclude: ["@resvg/resvg-js", "sharp"]
 		},
 	},
+	output: 'server',
+	adapter: vercel({
+		webAnalytics: {
+			enabled: true,
+		},
+		imageService: true,
+		devImageService: 'sharp',
+		functionPerRoute: false
+	}),
 });
 
   
