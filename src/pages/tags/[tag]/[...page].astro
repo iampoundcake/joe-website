@@ -11,10 +11,10 @@ import {
 	sortMDByDate as sortPostMDByDate,
 } from "@/data/post";
 import {
-	getAllDailies,
-	getUniqueTags as getDailyUniqueTags,
-	sortMDByDate as sortDailyMDByDate,
-} from "@/data/dailies";
+	getAllWeeklies,
+	getUniqueTags as getWeeklyUniqueTags,
+	sortMDByDate as sortWeeklyMDByDate,
+} from "@/data/weeklies";
 import {
 	getAllGarden,
 	getUniqueTags as getGardenUniqueTags,
@@ -34,8 +34,8 @@ import {
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 	function sanitizeTag(tag: string) {
 		return tag
-			.replace(/['"]/g, '') // Remove quotes
-			.replace(/[^\w\s-]/g, '') // Remove special characters and emojis
+			.replace(/['"]/g, "") // Remove quotes
+			.replace(/[^\w\s-]/g, "") // Remove special characters and emojis
 			.trim()
 			.toLowerCase(); // Normalize to lowercase
 	}
@@ -43,8 +43,8 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 	const allPosts = await getAllPosts();
 	const allPostsByDate = sortPostMDByDate(allPosts);
 
-	const allDailies = await getAllDailies();
-	const allDailiesByDate = sortDailyMDByDate(allDailies);
+	const allWeeklies = await getAllWeeklies();
+	const allWeekliesByDate = sortWeeklyMDByDate(allWeeklies);
 
 	const allGarden = await getAllGarden();
 	const allGardenByDate = sortGardenMDByDate(allGarden);
@@ -57,7 +57,7 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 
 	const uniqueTags = [
 		...getPostUniqueTags(allPostsByDate),
-		...getDailyUniqueTags(allDailiesByDate),
+		...getWeeklyUniqueTags(allWeekliesByDate),
 		...getGardenUniqueTags(allGardenByDate),
 		...getTrainingUniqueTags(allTrainingByDate),
 		...getMediaLibraryUniqueTags(allMediaLibraryByDate),
@@ -66,20 +66,26 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 	return uniqueTags.flatMap((tag) => {
 		const sanitizedTag = sanitizeTag(tag);
 		if (!sanitizedTag) return []; // Skip empty tags
-		
-		const filterPosts = allPostsByDate.filter((post) => 
-			post.data.tags.map(t => sanitizeTag(t)).includes(sanitizedTag)
+
+		const filterPosts = allPostsByDate.filter((post) =>
+			post.data.tags.map((t) => sanitizeTag(t)).includes(sanitizedTag),
 		);
-		const filterDailies = allDailiesByDate.filter((daily) => daily.data.tags.map(t => sanitizeTag(t)).includes(sanitizedTag));
-		const filterGarden = allGardenByDate.filter((garden) => garden.data.tags.map(t => sanitizeTag(t)).includes(sanitizedTag));
-		const filterTraining = allTrainingByDate.filter((training) => training.data.tags.map(t => sanitizeTag(t)).includes(sanitizedTag));
+		const filterWeeklies = allWeekliesByDate.filter((weekly) =>
+			weekly.data.tags.map((t) => sanitizeTag(t)).includes(sanitizedTag),
+		);
+		const filterGarden = allGardenByDate.filter((garden) =>
+			garden.data.tags.map((t) => sanitizeTag(t)).includes(sanitizedTag),
+		);
+		const filterTraining = allTrainingByDate.filter((training) =>
+			training.data.tags.map((t) => sanitizeTag(t)).includes(sanitizedTag),
+		);
 		const filterMediaLibrary = allMediaLibraryByDate.filter((media) =>
-			media.data.tags.map(t => sanitizeTag(t)).includes(sanitizedTag)
+			media.data.tags.map((t) => sanitizeTag(t)).includes(sanitizedTag),
 		);
 
 		const filters = [
 			...filterPosts,
-			...filterDailies,
+			...filterWeeklies,
 			...filterGarden,
 			...filterTraining,
 			...filterMediaLibrary,
@@ -92,9 +98,8 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
 	});
 };
 
-
 interface Props {
-	page: Page<CollectionEntry<"post, dailies, garden, training, media-library">>;
+	page: Page<CollectionEntry<"post" | "weeklies" | "garden" | "training" | "media-library">>;
 }
 
 const { page } = Astro.props;

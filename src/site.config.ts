@@ -50,7 +50,7 @@ export const menuLinks: Array<{ title: string; path: string }> = [
 	},
 	{
 		title: "log",
-		path: "/dailies/",
+		path: "/weeklies/",
 	},
 	{
 		title: "🪴",

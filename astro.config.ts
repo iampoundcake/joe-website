@@ -9,6 +9,7 @@ import { remarkReadingTime } from "./src/utils/remark-reading-time";
 import icon from "astro-icon";
 import expressiveCode from "astro-expressive-code";
 import { expressiveCodeOptions } from "./src/site.config";
+import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
@@ -51,6 +52,8 @@ export default defineConfig({
 			exclude: ["@resvg/resvg-js"],
 		},
 	},
+	output: 'server',
+	adapter: vercel(),
 });
 
   

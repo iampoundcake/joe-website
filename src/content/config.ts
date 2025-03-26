@@ -33,7 +33,7 @@ const postCollection = defineCollection({
 		}),
 });
 
-const dailiesCollection = defineCollection({
+const weekliesCollection = defineCollection({
 	type: "content",
 	schema: ({ image }) =>
 		z.object({
@@ -126,9 +126,7 @@ const mediaLibraryCollection = defineCollection({
 				.optional()
 				.transform((str) => (str ? new Date(str) : undefined)),
 			coverImage: z.object({
-				src: image({
-					allowRelativePaths: true
-				}).default('@/assets/defaults/placeholder.jpg'),
+				src: image(),
 				alt: z.string()
 			}),
 			draft: z.boolean().default(false),
@@ -139,7 +137,7 @@ const mediaLibraryCollection = defineCollection({
 
 export const collections = {
 	'post': postCollection,
-	'dailies': dailiesCollection,
+	'weeklies': weekliesCollection,
 	'garden': gardenCollection,
 	'training': trainingCollection,
 	'media-library': mediaLibraryCollection

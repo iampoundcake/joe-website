@@ -11,7 +11,7 @@ const rl = readline.createInterface({
 });
 
 type MediaSubtype = 'book' | 'tv' | 'music';
-type ContentType = 'post' | 'media-library' | 'dailies' | 'training';
+type ContentType = 'post' | 'media-library' | 'weeklies' | 'training';
 
 interface MediaTypeConfig {
   emoji: string;
@@ -19,7 +19,7 @@ interface MediaTypeConfig {
   template: string;
 }
 
-const VALID_TYPES: ContentType[] = ['post', 'media-library', 'dailies', 'training'];
+const VALID_TYPES: ContentType[] = ['post', 'media-library', 'weeklies', 'training'];
 const MEDIA_SUBTYPES: Record<MediaSubtype, MediaTypeConfig> = {
   'book': {
     emoji: '📚',

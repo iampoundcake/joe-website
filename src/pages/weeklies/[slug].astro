@@ -1,0 +1,23 @@
+---
+import CollectionLayout from "@/layouts/CollectionLayout.astro";
+import { getCollection } from "astro:content";
+
+const { slug } = Astro.params;
+
+// Get the entry directly from the collection
+const entry = await getCollection("weeklies").then((collection) =>
+	collection.find((entry) => entry.slug === slug),
+);
+
+// If entry is not found, return 404
+if (!entry) {
+	return Astro.redirect("/404");
+}
+
+const { Content } = await entry.render();
+---
+
+<CollectionLayout entry={entry}>
+	<Content />
+</CollectionLayout>
+

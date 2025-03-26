@@ -1,0 +1,48 @@
+---
+import { CollectionEntry } from "astro:content";
+import FormattedDate from "./FormattedDate.astro";
+
+interface Props {
+	weekly: CollectionEntry<"weeklies">;
+}
+
+const { weekly } = Astro.props;
+---
+
+<li>
+	<a
+		class="flex flex-col gap-8 rounded sm:flex-row sm:items-center"
+		href={`/weeklies/${weekly.slug}`}
+	>
+		<div class="sm:w-1/2">
+			{
+				weekly.data.coverImage && (
+					<img
+						class="rounded"
+						src={weekly.data.coverImage.src.src}
+						alt={weekly.data.coverImage.alt}
+						width={weekly.data.coverImage.src.width}
+						height={weekly.data.coverImage.src.height}
+					/>
+				)
+			}
+		</div>
+		<div class="sm:w-1/2">
+			<div class="space-y-2">
+				<h2 class="text-lg lg:text-xl">{weekly.data.title}</h2>
+				<p class="line-clamp-3">{weekly.data.description}</p>
+				<ul class="flex items-center gap-x-2">
+					{
+						weekly.data.tags.map((tag) => (
+							<li class="rounded-lg bg-accent p-1 text-xs text-bgColor">{tag}</li>
+						))
+					}
+				</ul>
+				<p class="text-gray-600 dark:text-gray-400">
+					<FormattedDate date={weekly.data.publishDate} />
+				</p>
+			</div>
+		</div>
+	</a>
+</li>
+

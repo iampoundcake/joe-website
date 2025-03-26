@@ -1,20 +1,19 @@
 ---
-import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-
 import CollectionLayout from "@/layouts/CollectionLayout.astro";
-import { getAllDailies } from "@/data/dailies";
+import { getCollection } from "astro:content";
 
-export const getStaticPaths = (async () => {
-	const dailiesEntries = await getAllDailies();
-	return dailiesEntries.map((entry) => ({
-		params: { slug: entry.slug },
-		props: { entry },
-	}));
-}) satisfies GetStaticPaths;
+const { slug } = Astro.params;
 
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+// Get the entry directly from the collection
+const entry = await getCollection("dailies").then((collection) =>
+	collection.find((entry) => entry.slug === slug),
+);
 
-const { entry } = Astro.props;
+// If entry is not found, return 404
+if (!entry) {
+	return Astro.redirect("/404");
+}
+
 const { Content } = await entry.render();
 ---
 

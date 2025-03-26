@@ -8,7 +8,7 @@ import WebMentions from "@/components/webmentions/index.astro";
 import BaseLayout from "./Base.astro";
 
 interface Props {
-	entry: CollectionEntry<"post, dalies, garden, training, media-library">;
+	entry: CollectionEntry<"post" | "weeklies" | "garden" | "training" | "media-library">;
 }
 
 const { entry } = Astro.props;

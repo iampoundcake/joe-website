@@ -1,20 +1,20 @@
 ---
 import PageLayout from "@/layouts/Base.astro";
 import { getAllPosts, getUniqueTagsWithCount as getUniquePostTagsWithCount } from "@/data/post";
-import { getAllDailies } from "@/data/dailies";
+import { getAllWeeklies } from "@/data/weeklies";
 import { getAllGarden } from "@/data/garden";
 import { getAllTraining } from "@/data/training";
 import { getAllMediaLibrary } from "@/data/media-library";
 
 const allPosts = await getAllPosts();
-const allDailies = await getAllDailies();
+const allWeeklies = await getAllWeeklies();
 const allGarden = await getAllGarden();
 const allTraining = await getAllTraining();
 const allMediaLibrary = await getAllMediaLibrary();
 
 const allTags = getUniquePostTagsWithCount([
 	...allPosts,
-	...allDailies,
+	...allWeeklies,
 	...allGarden,
 	...allTraining,
 	...allMediaLibrary,

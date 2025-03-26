@@ -8,9 +8,13 @@ import { getAllPosts } from "@/data/post";
 import { getAllGarden } from "@/data/garden";
 import { getAllTraining } from "@/data/training";
 import { getAllMediaLibrary } from "@/data/media-library";
+import { getAllWeeklies } from "@/data/weeklies";
 
 import RobotoMono from "@/assets/roboto-mono-regular.ttf";
 import RobotoMonoBold from "@/assets/roboto-mono-700.ttf";
+
+// Force static generation
+export const prerender = true;
 
 const ogOptions: SatoriOptions = {
 	width: 1200,
@@ -82,11 +86,11 @@ export async function GET(context: APIContext) {
 
 export async function getStaticPaths() {
 	const posts = await getAllPosts();
-	const dailies = await getAllGarden();
+	const weeklies = await getAllWeeklies();
 	const training = await getAllTraining();
 	const mediaLibrary = await getAllMediaLibrary();
 
-	const articles = [...posts, ...dailies, ...training, ...mediaLibrary]
+	const articles = [...posts, ...weeklies, ...training, ...mediaLibrary]
 
 	return articles
 		.filter(({ data }) => !data.ogImage)

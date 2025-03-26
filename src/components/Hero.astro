@@ -6,7 +6,7 @@ import { Image } from "astro:assets";
 import FormattedDate from "./FormattedDate.astro";
 
 interface Props {
-	content: CollectionEntry<"post, dailies, garden, training, media-library">;
+	content: CollectionEntry<"post" | "weeklies" | "garden" | "training" | "media-library">;
 }
 
 const {

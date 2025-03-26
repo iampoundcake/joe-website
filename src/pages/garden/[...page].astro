@@ -1,17 +1,40 @@
 ---
 import type { GetStaticPaths, Page } from "astro";
 import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 
 import Pagination from "@/components/Paginator.astro";
 import CollectionPreview from "@/components/CollectionPreview.astro";
 import PageLayout from "@/layouts/Base.astro";
-import { getAllGarden, getUniqueTags, sortMDByDate } from "@/data/garden";
+
+// Using static generation for reliable content
+export const prerender = true;
 
 export const getStaticPaths = (async ({ paginate }) => {
-	const allGarden = await getAllGarden();
-	const allGardenByDate = sortMDByDate(allGarden);
-	const uniqueTags = getUniqueTags(allGarden);
-	return paginate(allGardenByDate, { pageSize: 10, props: { uniqueTags } });
+	try {
+		// Directly use getCollection for more reliable data fetching
+		const gardenEntries = await getCollection("garden");
+
+		// Sort by date (newest first)
+		const sortedEntries = gardenEntries.sort((a, b) => {
+			const aDate = new Date(a.data.updatedDate ?? a.data.publishDate).valueOf();
+			const bDate = new Date(b.data.updatedDate ?? b.data.publishDate).valueOf();
+			return bDate - aDate;
+		});
+
+		// Get unique tags
+		const uniqueTags = [...new Set(sortedEntries.flatMap((entry) => entry.data.tags || []))];
+
+		// Return paginated data
+		return paginate(sortedEntries, {
+			pageSize: 10,
+			props: { uniqueTags },
+		});
+	} catch (error) {
+		console.error("Error in getStaticPaths:", error);
+		// Return empty data if there's an error
+		return paginate([], { pageSize: 10, props: { uniqueTags: [] } });
+	}
 }) satisfies GetStaticPaths;
 
 interface Props {
@@ -19,27 +42,29 @@ interface Props {
 	uniqueTags: string[];
 }
 
-const { page, uniqueTags } = Astro.props;
+const { page, uniqueTags = [] } = Astro.props;
 
 const meta = {
-	description: "Ready my collection of garden and the things that interest me",
+	description: "My collection of topics, thoughts, and a personal wiki of things I'm learning",
 	title: "Garden",
 };
 
-const paginationProps = {
-	...(page.url.prev && {
-		prevUrl: {
-			text: `← Previous Garden`,
-			url: page.url.prev,
-		},
-	}),
-	...(page.url.next && {
-		nextUrl: {
-			text: `Next Garden →`,
-			url: page.url.next,
-		},
-	}),
-};
+const paginationProps = page.url
+	? {
+			...(page.url.prev && {
+				prevUrl: {
+					text: `← Previous Garden`,
+					url: page.url.prev,
+				},
+			}),
+			...(page.url.next && {
+				nextUrl: {
+					text: `Next Garden →`,
+					url: page.url.next,
+				},
+			}),
+		}
+	: {};
 ---
 
 <PageLayout meta={meta}>
@@ -52,19 +77,28 @@ const paginationProps = {
 
 	<div class="grid gap-y-16 sm:grid-cols-[3fr_1fr] sm:gap-x-8">
 		<section aria-label="Garden list">
-			<ul class="space-y-8 text-start">
-				{
-					page.data.map((c) => (
-						<li class="flex flex-col flex-wrap gap-2 sm:flex-row [&_q]:basis-full">
-							<CollectionPreview as="h2" item={c} withDesc />
-						</li>
-					))
-				}
-			</ul>
+			{
+				page.data.length > 0 ? (
+					<ul class="space-y-8 text-start">
+						{page.data.map((c) => (
+							<li class="flex flex-col flex-wrap gap-2 sm:flex-row [&_q]:basis-full">
+								<CollectionPreview as="h2" item={c} withDesc />
+							</li>
+						))}
+					</ul>
+				) : (
+					<div>
+						<p>No garden entries found.</p>
+						<p class="mt-4 text-sm opacity-75">
+							Please check your content directory or create new garden entries.
+						</p>
+					</div>
+				)
+			}
 			<Pagination {...paginationProps} />
 		</section>
 		{
-			!!uniqueTags.length && (
+			uniqueTags.length > 0 && (
 				<aside>
 					<h2 class="mb-4 flex items-center text-lg font-semibold">
 						<svg
