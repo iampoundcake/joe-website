@@ -42,10 +42,7 @@ export default defineConfig({
 		mdx(),
 	],
 	image: {
-		domains: ["webmention.io"],
-		service: {
-			entrypoint: 'astro/assets/services/sharp'
-		}
+		domains: ["webmention.io"]
 	},
 	// https://docs.astro.build/en/guides/prefetch/
 	prefetch: true,
@@ -55,13 +52,11 @@ export default defineConfig({
 			exclude: ["@resvg/resvg-js", "sharp"]
 		},
 	},
-	output: 'server',
+	output: 'static',
 	adapter: vercel({
 		webAnalytics: {
 			enabled: true,
-		},
-		imageService: true,
-		devImageService: 'sharp'
+		}
 	}),
 });
 
