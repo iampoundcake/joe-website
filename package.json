@@ -15,10 +15,10 @@
 		"new": "ts-node scripts/create-content.ts"
 	},
 	"dependencies": {
-		"@astrojs/mdx": "^2.2.0",
+		"@astrojs/mdx": "^3.1.9",
 		"@astrojs/rss": "^4.0.5",
 		"@astrojs/sitemap": "^3.1.1",
-		"@astrojs/tailwind": "^5.1.0",
+		"@astrojs/tailwind": "^6.0.1",
 		"@astrojs/vercel": "^8.1.3",
 		"astro": "^5.0.0",
 		"astro-expressive-code": "^0.33.5",
