@@ -1,44 +1,34 @@
 ---
-import type { GetStaticPaths, Page } from "astro";
+import type { GetStaticPaths } from "astro";
 import type { CollectionEntry } from "astro:content";
-
-import Pagination from "@/components/Paginator.astro";
 import PageLayout from "@/layouts/Base.astro";
 import { getAllMediaLibrary, getUniqueTags, sortMDByDate } from "@/data/media-library";
-import MediaLibraryPreview from "@/components/MediaLibraryPreview.astro";
+import MediaLibraryList from "@/components/MediaLibraryList.astro";
 
-export const getStaticPaths = (async ({ paginate }) => {
+export const getStaticPaths = (async () => {
 	const allMediaLibrary = await getAllMediaLibrary();
 	const allMediaLibraryByDate = sortMDByDate(allMediaLibrary);
 	const uniqueTags = getUniqueTags(allMediaLibrary);
-	return paginate(allMediaLibraryByDate, { pageSize: 10, props: { uniqueTags } });
+
+	// Return a single path with all the data we need
+	return [
+		{
+			params: { page: undefined },
+			props: { allMediaLibraryByDate, uniqueTags },
+		},
+	];
 }) satisfies GetStaticPaths;
 
 interface Props {
-	page: Page<CollectionEntry<"media-library">>;
+	allMediaLibraryByDate: CollectionEntry<"media-library">[];
 	uniqueTags: string[];
 }
 
-const { page, uniqueTags } = Astro.props;
+const { allMediaLibraryByDate, uniqueTags } = Astro.props;
 
 const meta = {
 	description: "Ready my collection of media library and the things that interest me",
 	title: "Media Library",
-};
-
-const paginationProps = {
-	...(page.url.prev && {
-		prevUrl: {
-			text: `← Previous Media Library`,
-			url: page.url.prev,
-		},
-	}),
-	...(page.url.next && {
-		nextUrl: {
-			text: `Next Media Library →`,
-			url: page.url.next,
-		},
-	}),
 };
 ---
 
@@ -46,12 +36,7 @@ const paginationProps = {
 	<h1 class="title mb-6">Media Library 📼</h1>
 	<div class="grid gap-y-16 sm:grid-cols-[3fr_1fr] sm:gap-x-8">
 		<section aria-label="Media Library list">
-			<ul class="flex flex-wrap -mx-4">
-				{page.data.map((media) => (
-					<MediaLibraryPreview media={media} />
-				))}
-			</ul>
-			<Pagination {...paginationProps} />
+			<MediaLibraryList items={allMediaLibraryByDate} />
 		</section>
 		{
 			!!uniqueTags.length && (
@@ -98,3 +83,67 @@ const paginationProps = {
 		}
 	</div>
 </PageLayout>
+
+<script>
+	// Store all media items
+	const allMediaItems = document.querySelectorAll("#media-list > li") as NodeListOf<HTMLElement>;
+	let currentlyShown = 6;
+	const ITEMS_PER_PAGE = 6;
+
+	// Get the load more button
+	const loadMoreButton = document.getElementById("load-more") as HTMLButtonElement;
+	if (loadMoreButton) {
+		loadMoreButton.addEventListener("click", () => {
+			// Show loading state
+			loadMoreButton.textContent = "Loading...";
+			loadMoreButton.disabled = true;
+
+			// Simulate loading delay (remove this in production)
+			setTimeout(() => {
+				// Calculate how many more items to show
+				const remainingItems = allMediaItems.length - currentlyShown;
+				const itemsToShow = Math.min(ITEMS_PER_PAGE, remainingItems);
+
+				// Show the next batch of items with animation
+				for (let i = 0; i < itemsToShow; i++) {
+					const item = allMediaItems[currentlyShown + i];
+					item.style.opacity = "0";
+					item.style.transform = "translateY(20px)";
+					item.style.display = "block";
+
+					// Trigger animation
+					requestAnimationFrame(() => {
+						item.style.transition = "opacity 0.5s ease-out, transform 0.5s ease-out";
+						item.style.opacity = "1";
+						item.style.transform = "translateY(0)";
+					});
+				}
+
+				currentlyShown += itemsToShow;
+
+				// Update button state
+				if (currentlyShown >= allMediaItems.length) {
+					loadMoreButton.style.display = "none";
+				} else {
+					loadMoreButton.textContent = "Load More";
+					loadMoreButton.disabled = false;
+				}
+			}, 500); // Remove this timeout in production
+		});
+	}
+</script>
+
+<style>
+	#media-list > li {
+		opacity: 1;
+		transform: translateY(0);
+		transition:
+			opacity 0.5s ease-out,
+			transform 0.5s ease-out;
+	}
+
+	/* Hide all items after the first 6 */
+	#media-list > li:nth-child(n + 7) {
+		display: none;
+	}
+</style>
