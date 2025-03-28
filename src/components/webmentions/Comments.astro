@@ -2,7 +2,6 @@
 import type { WebmentionsChildren } from "@/types";
 
 import { Image } from "astro:assets";
-import { Icon } from "astro-icon/components";
 
 interface Props {
 	mentions: WebmentionsChildren[];
@@ -15,6 +14,8 @@ const validComments = ["mention-of", "in-reply-to"];
 const comments = mentions.filter(
 	(mention) => validComments.includes(mention["wm-property"]) && mention.content?.text,
 );
+
+const externalLinkIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 13v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7v2H5v14h14v-6h2zm3-8h-6V4l5 5z"/></svg>`;
 
 /**
  ! show a link to the mention 
@@ -71,12 +72,7 @@ const comments = mentions.filter(
 									<span class="hidden" id="cmt-source">
 										Vist the source of this webmention
 									</span>
-									<Icon
-										aria-hidden="true"
-										class="h-5 w-5"
-										focusable="false"
-										name="mdi:open-in-new"
-									/>
+									<span class="h-5 w-5" set:html={externalLinkIcon} aria-hidden="true" />
 								</a>
 							</div>
 							<p class="mb-0 mt-1 break-words [word-break:break-word]">{mention.content?.text}</p>
