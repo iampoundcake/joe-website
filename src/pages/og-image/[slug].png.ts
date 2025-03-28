@@ -63,8 +63,6 @@ const markup = (title: string, pubDate: string) =>
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-export const prerender = true;
-
 export async function GET(context: APIContext) {
 	const { title, pubDate } = context.props as Props;
 
